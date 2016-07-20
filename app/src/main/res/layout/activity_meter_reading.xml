@@ -9,15 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MeterReading">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
 
-        <ScrollView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView" >
+            android:layout_height="match_parent">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -127,12 +127,6 @@
                 </TableRow>
 
             </TableLayout>
-        </ScrollView>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView2" >
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -222,40 +216,42 @@
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
+                        android:inputType="textAutoComplete"
                         android:ems="10"
                         android:id="@+id/notes" />
                 </TableRow>
             </TableLayout>
-        </ScrollView>
 
-        <RelativeLayout
-                android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom">
+            <RelativeLayout
+                    android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal|bottom">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/imageButton"
-                android:src="@drawable/ic_back"
-                android:layout_gravity="left"
-                android:layout_alignParentStart="true"
-                android:contentDescription="Go to previous meter reading" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/backButton"
+                    android:src="@drawable/ic_back"
+                    android:layout_gravity="left"
+                    android:layout_alignParentStart="true"
+                    android:contentDescription="Go to previous meter reading"
+                    android:onClick="validateBeforeNavigate" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/imageButton2"
-                android:src="@drawable/ic_next"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:contentDescription="Go to next meter reading" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/nextButton"
+                    android:src="@drawable/ic_next"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="Go to next meter reading"
+                    android:onClick="validateBeforeNavigate" />
 
-        </RelativeLayout>
-    </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
 
