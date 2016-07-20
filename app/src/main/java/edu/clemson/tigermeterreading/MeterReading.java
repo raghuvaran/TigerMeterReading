@@ -22,7 +22,7 @@ public class MeterReading extends AppCompatActivity {
 
     DatabaseManager databaseManager;
 
-    TextView routeNumberText, routeSequenceText, typeText, meterNumberText, meterSerialText, facNameText, prevReadingText;
+    TextView typeText, meterNumberText, meterSerialText, facNameText, prevReadingText;
     EditText currReadingText, notes;
     int routeNumber,routeSeqPointer;
     List<Integer> routeSequence;
@@ -38,15 +38,14 @@ public class MeterReading extends AppCompatActivity {
         routeNumber = intent.getIntExtra("routeNumber",-1);
         routeSeqPointer = intent.getIntExtra("routeSequence",-1);
 
-        setTitle("Route No: "+routeNumber);
+        setTitle("Route : "+routeNumber+ "   & Sequence : " +routeSeqPointer);
 
         databaseManager = new DatabaseManager(getApplicationContext());
         databaseManager.open();
         routeSequence = databaseManager.getRouteSeq(routeNumber);
         databaseManager.close();
 
-        routeNumberText = (TextView) findViewById(R.id.routeNumber);
-        routeSequenceText = (TextView) findViewById(R.id.routeSequence);
+
         typeText = (TextView) findViewById(R.id.typeName);
         meterNumberText = (TextView) findViewById(R.id.meterNumber);
         meterSerialText = (TextView) findViewById(R.id.meterSerial);
@@ -63,7 +62,7 @@ public class MeterReading extends AppCompatActivity {
 
 
         routeSeqPointer = sequence;
-
+        setTitle("Route : "+routeNumber+ "   & Sequence : " +routeSeqPointer);
         databaseManager.open();
         mID = databaseManager.getMeterId(route,sequence);
         databaseManager.close();
@@ -83,8 +82,7 @@ public class MeterReading extends AppCompatActivity {
 
             databaseManager.close();
 
-            routeNumberText.setText(String.valueOf(route));
-            routeSequenceText.setText(String.valueOf(sequence));
+
             typeText.setText(String.valueOf(meter.getType() + " (" + meter.getUnits() + ")"));
             meterNumberText.setText(meter.getNumber());
             meterSerialText.setText(meter.getSerial());

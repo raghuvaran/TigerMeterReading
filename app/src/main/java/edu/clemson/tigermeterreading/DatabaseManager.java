@@ -180,7 +180,7 @@ public class DatabaseManager {
      */
     public List<Integer> getRoutes(){
         Cursor cursor;
-        List<Integer> routes = new ArrayList<Integer>();
+        List<Integer> routes = new ArrayList<>();
 
         cursor = db.rawQuery("SELECT DISTINCT routeNumber FROM routes ORDER BY routeNumber ASC",null);
 
@@ -224,7 +224,7 @@ public class DatabaseManager {
 
         cursor.moveToFirst();
         Meter meter = new Meter(meterID,cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
-
+        cursor.close();
         return meter;
 
     }
