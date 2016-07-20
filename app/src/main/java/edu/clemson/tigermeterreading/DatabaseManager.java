@@ -1,5 +1,6 @@
 package edu.clemson.tigermeterreading;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -257,20 +258,18 @@ public class DatabaseManager {
     }
 
 
-    public void saveCurrReading(int mID, double reading, String notes){
+    public void saveCurrReading(int rID, int mID, double reading, String notes){
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        Log.i("TimeStamp: ",String.valueOf(timestamp).substring(0,19));
 
-        String query = "INSERT INTO readings(mID, timeStamp, readingValue, notes) VALUES(" +
-                "'" +String.valueOf(mID)+ "'," +
-                "'" +String.valueOf(timestamp).substring(0,19)+ "'," +
-                "'" +String.valueOf(reading)+ "'," +
-                "'" +notes+ "'" +
-                ")";
-        Log.i("query",query);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("rID",rID==-1?null:rID);
+        contentValues.put("mID",mID);
+        contentValues.put("timeStamp",String.valueOf(timestamp).substring(0,19));
+        contentValues.put("readingValue",reading);
+        contentValues.put("notes",notes);
 
-        db.execSQL(query);
+        db.replaceOrThrow("readings",null,contentValues);
 
     }
 

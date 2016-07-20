@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TigerMeterReading</string>
     <string name="title_activity_route_seq_selector">RouteSeqSelector</string>
+
+    <string name="selectRoute">Choose your route</string>
+    <string name="selectSequence">Choose your sequence</string>
 </resources>

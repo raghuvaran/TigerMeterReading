@@ -27,6 +27,7 @@ public class MeterReading extends AppCompatActivity {
     int routeNumber,routeSeqPointer;
     List<Integer> routeSequence;
     int mID = -1;
+    int currReadingRowId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class MeterReading extends AppCompatActivity {
             facNameText.setText(meter.getFacName());
             prevReadingText.setText(String.valueOf(prevReading.getReading()));
 
+            currReadingRowId = currReading.getrId();
             currReadingText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(meter.getDigits())});
 
             if(currReading.getReading() == -1){
@@ -118,7 +120,7 @@ public class MeterReading extends AppCompatActivity {
 
         databaseManager.open();
         //int meterId = databaseManager.getMeterId(routeNumber,routeSeqPointer);
-        databaseManager.saveCurrReading(mID,Double.valueOf(currReadingText.getText().toString()),notes.getText().toString());
+        databaseManager.saveCurrReading(currReadingRowId,mID,Double.valueOf(currReadingText.getText().toString()),notes.getText().toString());
         databaseManager.close();
 
 
@@ -142,7 +144,7 @@ public class MeterReading extends AppCompatActivity {
 
     public void validateBeforeNavigate(final View view){
 
-        if(String.valueOf(currReadingText.getText()).isEmpty()){
+        if(Double.valueOf(currReadingText.getText().toString()) == 0){
                 new AlertDialog.Builder(MeterReading.this)
                         .setTitle("Skipping meter")
                         .setMessage("You haven't entered current reading. Do you want to skip this meter?")

@@ -47,6 +47,7 @@ public class RouteSelector extends AppCompatActivity {
         databaseManager.open();
         routeArrayAdapter = new ArrayAdapter<>(RouteSelector.this,android.R.layout.simple_spinner_item, databaseManager.getRoutes());// Array adapter is necessary for spinner
         databaseManager.close();
+        routeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         routeSelector.setAdapter(routeArrayAdapter); //Spinner is now set with the array values
 
 
@@ -58,6 +59,7 @@ public class RouteSelector extends AppCompatActivity {
                 databaseManager.open();
                 final ArrayAdapter<Integer> seqArrayAdapter = new ArrayAdapter<>(RouteSelector.this, android.R.layout.simple_spinner_item,databaseManager.getRouteSeq(routeNumber));
                 databaseManager.close();
+                seqArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 routeSeqSelector.setAdapter(seqArrayAdapter);
                 setRouteSeqArrayAdapter(seqArrayAdapter);
             }
