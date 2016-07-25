@@ -78,8 +78,6 @@ public class MeterReading extends AppCompatActivity {
 
             calendar.add(Calendar.MONTH,-1);
             prevReading = databaseManager.getMeterReading(mID,calendar);
-
-
             databaseManager.close();
 
 
@@ -97,7 +95,7 @@ public class MeterReading extends AppCompatActivity {
             }else{
                 currReadingText.setText(String.valueOf(currReading.getReading()));
             }
-
+            currReadingText.setSelection(currReadingText.getText().length());
             if(currReading.getNotes() == null) notes.setText("");
             else notes.setText(currReading.getNotes());
 
@@ -142,7 +140,9 @@ public class MeterReading extends AppCompatActivity {
 
     public void validateBeforeNavigate(final View view){
 
-        if(Double.valueOf(currReadingText.getText().toString()) == 0){
+
+        try {
+            if( Double.valueOf(currReadingText.getText().toString()) == 0){
                 new AlertDialog.Builder(MeterReading.this)
                         .setTitle("Skipping meter")
                         .setMessage("You haven't entered current reading. Do you want to skip this meter?")
@@ -159,8 +159,29 @@ public class MeterReading extends AppCompatActivity {
                             }
                         })
                         .show();
-        }else{
-            onNavigate(view);
+
+            }else{
+                onNavigate(view);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            new AlertDialog.Builder(MeterReading.this)
+                    .setTitle("Skipping meter")
+                    .setMessage("You haven't entered current reading. Do you want to skip this meter?")
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Do nothing, return to activity
+                        }
+                    })
+                    .setPositiveButton("Skip", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onNavigate(view);
+                        }
+                    })
+                    .show();
+
         }
 
 

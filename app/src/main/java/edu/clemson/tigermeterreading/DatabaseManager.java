@@ -220,7 +220,7 @@ public class DatabaseManager {
     public Meter getMeter(int meterID){
         Cursor cursor;
 
-        cursor = db.rawQuery("SELECT  digits, Number, typeName, facName, Serial, units FROM meters , type WHERE mID = "+meterID+" AND type.typeID = meters.typeID ",null);
+        cursor = db.rawQuery("SELECT  digits, Number, typeName, facName, Serial, units FROM meters, type WHERE mID = "+meterID+" AND type.typeID = meters.typeID ",null);
 
         cursor.moveToFirst();
         Meter meter = new Meter(meterID,cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
@@ -271,6 +271,10 @@ public class DatabaseManager {
 
         db.replaceOrThrow("readings",null,contentValues);
 
+
     }
 
+    public Cursor queryResult(String query){
+        return db.rawQuery(query,null);
+    }
 }

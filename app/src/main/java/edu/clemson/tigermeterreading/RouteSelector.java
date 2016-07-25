@@ -1,8 +1,10 @@
 package edu.clemson.tigermeterreading;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -96,6 +98,11 @@ public class RouteSelector extends AppCompatActivity {
      */
     public void onStartTour(View view){
         if(routeNumber != -1 && routeSequence != -1){
+            SharedPreferences sharedPreferences = getSharedPreferences("syncStatus",-1);
+            databaseManager.open();
+            JsonManager jsonManager = new JsonManager(databaseManager,sharedPreferences);
+            Log.i("DBSyncOutput",jsonManager.unSyncedData().toString());
+            databaseManager.close();
 
             Intent intent = new Intent(getApplicationContext(), MeterReading.class);
             intent.putExtra("routeNumber",routeNumber);
